@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.List;
 import jpabook.jpashop.domain.Category;
 import jpabook.jpashop.domain.OrderItem;
+import jpabook.jpashop.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +22,7 @@ import lombok.Setter;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")
 @Getter @Setter
-public class Item {
+public abstract class Item {
 
     @Id @GeneratedValue
     @Column(name = "item_id")
@@ -34,14 +35,16 @@ public class Item {
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "item")
-    private Collection<OrderItem> orderItem;
-
-    public Collection<OrderItem> getOrderItem() {
-        return orderItem;
+    public void addStockQuantity(int quantity) {
+        this.stockQuantity += quantity;
     }
 
-    public void setOrderItem(Collection<OrderItem> orderItem) {
-        this.orderItem = orderItem;
+    public void removeStock(int quantity) {
+        int restStock = this.stockQuantity - quantity;
+        if (restStock < 0) {
+            throw new NotEnoughStockException("Need more stock");
+        }
+        this.stockQuantity -= quantity;
     }
+
 }
