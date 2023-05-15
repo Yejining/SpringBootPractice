@@ -26,6 +26,7 @@ dependencies {
 	implementation ("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1")
 	implementation("jakarta.validation:jakarta.validation-api:3.0.0")
 	implementation("org.hibernate.validator:hibernate-validator:7.0.1.Final")
+	implementation("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5-jakarta:2.13.1")
 	runtimeOnly("com.mysql:mysql-connector-j")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
