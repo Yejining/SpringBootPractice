@@ -2,6 +2,7 @@ package jpabook.jpashop.domain;
 
 import static jakarta.persistence.FetchType.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -41,6 +42,7 @@ public class Category {
     @JoinColumn(name = "parent_id")
     private Category parent;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "parent")
     private List<Category> child = new ArrayList<>();
 
